@@ -3,3 +3,4 @@ fuzzy
 pyspellchecker
 tk
 flask
+flask-cors

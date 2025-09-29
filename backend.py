@@ -10,20 +10,13 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from spellchecker import SpellChecker
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # ----------------------------
 # Setup
 # ----------------------------
-
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("punkt")
-
-try:
-    nltk.data.find("corpora/stopwords")
-except LookupError:
-    nltk.download("stopwords")
+nltk.download("punkt")
+nltk.download("stopwords")
 
 stemmer = PorterStemmer()
 stop_words = set(stopwords.words("english"))
@@ -156,6 +149,7 @@ def rank_documents(query_weights, dictionary, doc_lengths, top_k=10):
 # Flask API
 # ----------------------------
 app = Flask(__name__)
+CORS(app)
 
 # Load index and filenames at startup
 index_file = "index.pkl"
